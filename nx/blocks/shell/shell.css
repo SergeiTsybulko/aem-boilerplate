@@ -1,0 +1,18 @@
+.section {
+  height: 100%;
+}
+
+.nx-shell {
+  height: 100%;
+}
+
+.no-shell {
+  background-color: #fff;
+}
+
+iframe {
+  display: block;
+  border: none;
+  width: 100%;
+  height: 100%;
+}

@@ -5,9 +5,16 @@
   "description": "Starter project for Adobe Helix",
   "scripts": {
     "lint:js": "eslint .",
-    "lint:css": "stylelint \"blocks/**/*.css\" \"styles/*.css\"",
+    "lint:css": "stylelint blocks/**/*.css styles/*.css",
     "lint": "npm run lint:js && npm run lint:css",
-    "lint:fix": "npm run lint:js -- --fix && npm run lint:css -- --fix"
+    "local": "aem up --port=6456",
+    "test": "wtr --config ./web-test-runner.config.mjs \"./test/**/*.test.(js|html)\" --node-resolve --port=2000 --coverage --concurrent-browsers 4",
+    "test:debug": "wtr --config ./web-test-runner.config.mjs \"./test/**/*.test.(js|html)\" --node-resolve --port=2000 --debug --watch",
+    "test:watch": "npm test -- --watch",
+    "test:file": "wtr --config ./web-test-runner.config.mjs --node-resolve --port=2000 --coverage",
+    "test:file:watch": "wtr --config ./web-test-runner.config.mjs --node-resolve --port=2000 --coverage --watch",
+    "build:mdast": "esbuild --format=esm --minify ./nx/deps/mdast/src/index.js --bundle --outfile=./nx/deps/mdast/dist/index.js",
+    "build:da-lit": "esbuild --format=esm --minify ./deps/lit/src/index.js --bundle --outfile=./deps/lit/dist/index.js"
   },
   "repository": {
     "type": "git",
@@ -20,11 +27,33 @@
   },
   "homepage": "https://github.com/adobe/aem-boilerplate#readme",
   "devDependencies": {
-    "@babel/eslint-parser": "7.29.7",
-    "eslint": "8.57.1",
+    "@babel/core": "7.24.5",
+    "@babel/eslint-parser": "7.24.5",
+    "@esm-bundle/chai": "4.3.4-fix.0",
+    "@web/dev-server-import-maps": "^0.2.0",
+    "@web/test-runner": "^0.18.0",
+    "@web/test-runner-commands": "0.9.0",
+    "chai": "4.4.1",
+    "eslint": "8.57.0",
     "eslint-config-airbnb-base": "15.0.0",
-    "eslint-plugin-import": "2.32.0",
-    "stylelint": "17.14.0",
-    "stylelint-config-standard": "40.0.0"
+    "eslint-plugin-chai-friendly": "^0.7.2",
+    "eslint-plugin-compat": "^4.0.2",
+    "eslint-plugin-ecmalist": "^1.0.8",
+    "eslint-plugin-import": "2.29.1",
+    "sinon": "13.0.2",
+    "stylelint": "14.6.0",
+    "stylelint-config-prettier": "9.0.5",
+    "stylelint-config-standard": "25.0.0"
+  },
+  "dependencies": {
+    "@adobe/mdast-util-gridtables": "^4.0.6",
+    "@adobe/remark-gridtables": "^3.0.6",
+    "lit": "^3.2.0",
+    "esbuild": "^0.23.1",
+    "hast-util-raw": "^9.0.4",
+    "hast-util-to-html": "^9.0.3",
+    "mdast-util-to-hast": "^13.2.0",
+    "remark-parse": "^11.0.0",
+    "unified": "^11.0.5"
   }
 }
